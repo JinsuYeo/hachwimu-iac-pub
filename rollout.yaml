@@ -28,18 +28,18 @@ spec:
             limits:
               cpu: 200m
               memory: 512Mi
-  strategy:
-    blueGreen:
-      activeService: service-user-active
-      previewService: service-user-preview
-      autoPromotionEnabled: false
   # strategy:
-  #   canary:
-  #     maxSurge: '25%' # canary 배포로 생성할 pod의 비율
-  #     maxUnavailable: 0 # 업데이트 될 때 사용할 수 없는 pod의 최대 수
-  #     steps:
-  #       - setWeight: 25 # 카나리로 배포된 서버로 전송해야될 트래픽 비율
-  #       - pause: { duration: 1h } # AutoPromotion Time
+  #   blueGreen:
+  #     activeService: service-user-active
+  #     previewService: service-user-preview
+  #     autoPromotionEnabled: false
+  strategy:
+    canary:
+      maxSurge: '25%'
+      maxUnavailable: 0 # 업데이트 될 때 사용할 수 없는 pod의 최대 수
+      steps:
+        - setWeight: 25 # 카나리로 배포된 서버로 전송해야될 트래픽 비율
+        - pause: { duration: 1h } # AutoPromotion Time
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
@@ -70,15 +70,15 @@ spec:
             limits:
               cpu: 1
               memory: 1024Mi
-  strategy:
-    blueGreen:
-      activeService: service-products-active
-      previewService: service-products-preview
-      autoPromotionEnabled: false
   # strategy:
-  #   canary:
-  #     maxSurge: '25%' # canary 배포로 생성할 pod의 비율
-  #     maxUnavailable: 0 # 업데이트 될 때 사용할 수 없는 pod의 최대 수
-  #     steps:
-  #       - setWeight: 25 # 카나리로 배포된 서버로 전송해야될 트래픽 비율
-  #       - pause: { duration: 1h } # AutoPromotion Time
+  #   blueGreen:
+  #     activeService: service-products-active
+  #     previewService: service-products-preview
+  #     autoPromotionEnabled: false
+  strategy:
+    canary:
+      maxSurge: '25%'
+      maxUnavailable: 0 # 업데이트 될 때 사용할 수 없는 pod의 최대 수
+      steps:
+        - setWeight: 25 # 카나리로 배포된 서버로 전송해야될 트래픽 비율
+        - pause: { duration: 1h } # AutoPromotion Time
